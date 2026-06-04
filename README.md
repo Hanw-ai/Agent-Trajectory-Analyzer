@@ -97,3 +97,7 @@ Agent Trajectory Analysis Results
 Report generated:
 reports/evaluation_report.md
 ```
+
+## Failure Analysis
+
+![Failure Breakdown](reports/failure_breakdown.png)
