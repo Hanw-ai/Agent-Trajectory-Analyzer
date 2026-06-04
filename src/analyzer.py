@@ -10,6 +10,10 @@ from src.metrics import (
     compute_dominant_failure_mode,
 )
 
+from src.judges import (
+compute_judge_agreement,
+evaluate_with_judges,
+)
 
 class TrajectoryAnalyzer:
     def __init__(self, data_path):
@@ -38,6 +42,12 @@ class TrajectoryAnalyzer:
             ),
             "dominant_failure_mode": compute_dominant_failure_mode(
                 failure_breakdown
+            ),
+            "judge_agreement": compute_judge_agreement(
+                self.trajectories
+            ),
+            "judge_results": evaluate_with_judges(
+                self.trajectories
             ),
         }
 
