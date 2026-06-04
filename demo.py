@@ -1,6 +1,6 @@
 from src.analyzer import TrajectoryAnalyzer
 from src.report import generate_markdown_report
-
+from src.visualization import plot_failure_breakdown
 
 def main():
     analyzer = TrajectoryAnalyzer("data/sample_trajectories.json")
@@ -19,3 +19,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+plot_failure_breakdown(
+    results["failure_breakdown"]
+)
