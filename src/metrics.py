@@ -41,21 +41,13 @@ def compute_tool_error_rate(trajectories):
 
     return tool_errors / total if total else 0
 
-def compute_trajectory_score(
-    success_rate,
-    tool_error_rate
-):
-    return (
-        success_rate * 100
-        -
-        tool_error_rate * 50
-    )
+
+def compute_trajectory_score(success_rate, tool_error_rate):
+    return success_rate * 100 - tool_error_rate * 50
+
 
 def compute_dominant_failure_mode(failure_breakdown):
     if not failure_breakdown:
         return "none"
 
-    return max(
-        failure_breakdown,
-        key=failure_breakdown.get
-    )
+    return max(failure_breakdown, key=failure_breakdown.get)
