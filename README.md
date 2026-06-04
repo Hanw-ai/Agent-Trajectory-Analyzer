@@ -51,3 +51,49 @@ This framework analyzes those failures from agent traces.
   ],
   "failure_reason": null
 }
+
+## How to Run
+
+Clone repository
+
+```bash
+git clone https://github.com/Hanw-ai/Agent-Trajectory-Analyzer.git
+```
+
+Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+Run analyzer
+
+```bash
+python demo.py
+```
+
+## Example Output
+
+```text
+Agent Trajectory Analysis Results
+
+{
+  'total_tasks': 5,
+  'success_rate': 0.4,
+  'avg_trajectory_length': 2.4,
+  'tool_usage': {
+      'search': 3,
+      'browser': 4,
+      'summarizer': 5
+  },
+  'failure_breakdown': {
+      'retrieval_error': 1,
+      'tool_selection_error': 1,
+      'hallucination': 1
+  },
+  'tool_error_rate': 0.2
+}
+
+Report generated:
+reports/evaluation_report.md
+```
