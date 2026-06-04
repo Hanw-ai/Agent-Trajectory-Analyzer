@@ -1,7 +1,5 @@
 import json
 
-from src.judges import compute_judge_agreement, evaluate_with_judges
-
 from src.metrics import (
     compute_success_rate,
     compute_avg_trajectory_length,
@@ -34,10 +32,13 @@ class TrajectoryAnalyzer:
             "tool_usage": compute_tool_usage(self.trajectories),
             "failure_breakdown": failure_breakdown,
             "tool_error_rate": tool_error_rate,
-            "trajectory_score": compute_trajectory_score(success_rate, tool_error_rate),
-            "dominant_failure_mode": compute_dominant_failure_mode(failure_breakdown),
-            "judge_agreement": compute_judge_agreement(self.trajectories),
-            "judge_results": evaluate_with_judges(self.trajectories),
+            "trajectory_score": compute_trajectory_score(
+                success_rate,
+                tool_error_rate
+            ),
+            "dominant_failure_mode": compute_dominant_failure_mode(
+                failure_breakdown
+            ),
         }
 
         return results
