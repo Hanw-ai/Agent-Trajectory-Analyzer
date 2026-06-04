@@ -40,3 +40,13 @@ def compute_tool_error_rate(trajectories):
     )
 
     return tool_errors / total if total else 0
+
+def compute_trajectory_score(
+    success_rate,
+    tool_error_rate
+):
+    return (
+        success_rate * 100
+        -
+        tool_error_rate * 50
+    )
