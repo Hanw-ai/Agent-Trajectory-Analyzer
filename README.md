@@ -28,6 +28,17 @@ This framework analyzes those failures from agent traces.
 - Detect failure root causes
 - Generate an evaluation report
 
+## LLM-as-Judge
+
+The framework supports both:
+
+- Rule-Based Judge
+- Simulated LLM-as-Judge
+
+Judge agreement is measured to evaluate consistency between deterministic evaluation and model-based evaluation.
+
+This mirrors evaluation workflows commonly used in modern agent systems.
+
 ## Example Trajectory
 
 ```json
