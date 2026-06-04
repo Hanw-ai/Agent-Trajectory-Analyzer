@@ -36,4 +36,3 @@ This type of analysis is useful for debugging LLM agents, improving tool routing
     with open(output_path, "w") as file:
         file.write(report)
 
-failure_breakdown.png
