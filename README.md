@@ -115,3 +115,16 @@ This helps diagnose whether an agent primarily fails because of:
 - Recovery failure
 
 This is useful for debugging agentic systems such as coding agents, research agents, browser agents, and tool-using assistants.
+
+## V2: LLM-as-Judge + Judge Agreement
+
+This project includes two judge types:
+
+| Judge | Description |
+|---|---|
+| Rule-Based Judge | Uses explicit failure labels and success signals |
+| Simulated LLM-as-Judge | Evaluates trajectory quality, tool use, and grounding behavior |
+
+The framework computes judge agreement to measure consistency between deterministic rules and LLM-style evaluation.
+
+This mirrors common evaluation workflows for agentic systems, where model outputs are assessed using both programmatic checks and LLM-based evaluators.
