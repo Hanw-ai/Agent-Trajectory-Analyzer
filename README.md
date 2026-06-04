@@ -101,3 +101,17 @@ reports/evaluation_report.md
 ## Failure Analysis
 
 ![Failure Breakdown](reports/failure_breakdown.png)
+
+## Root Cause Analysis
+
+The analyzer identifies the dominant failure mode across failed agent trajectories.
+
+This helps diagnose whether an agent primarily fails because of:
+
+- Poor retrieval
+- Incorrect tool routing
+- Unsupported generation
+- Reasoning failure
+- Recovery failure
+
+This is useful for debugging agentic systems such as coding agents, research agents, browser agents, and tool-using assistants.
