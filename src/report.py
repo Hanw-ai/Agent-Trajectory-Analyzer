@@ -9,6 +9,8 @@ def generate_markdown_report(results, output_path):
 | Success Rate | {results["success_rate"]:.2%} |
 | Average Trajectory Length | {results["avg_trajectory_length"]:.2f} |
 | Tool Error Rate | {results["tool_error_rate"]:.2%} |
+| Trajectory Score | {results["trajectory_score"]:.2f} |
+| Dominant Failure Mode | {results["dominant_failure_mode"]} |
 
 ## Tool Usage
 
