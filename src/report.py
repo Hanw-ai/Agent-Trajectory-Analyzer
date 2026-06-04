@@ -11,6 +11,7 @@ def generate_markdown_report(results, output_path):
 | Tool Error Rate | {results["tool_error_rate"]:.2%} |
 | Trajectory Score | {results["trajectory_score"]:.2f} |
 | Dominant Failure Mode | {results["dominant_failure_mode"]} |
+| Judge Agreement | {results["judge_agreement"]:.2%} |
 
 ## Tool Usage
 
@@ -25,6 +26,31 @@ def generate_markdown_report(results, output_path):
         report += f"- {reason}: {count}\n"
 
     report += """
+
+report += "\n## LLM-as-Judge Evaluation\n\n"
+
+for item in results["judge_results"]:
+
+report += (
+f"### {item['task_id']}\n\n"
+)
+
+report += (
+f"- Rule Judge: "
+f"{item['rule_based_judge']['label']} "
+f"(score={item['rule_based_judge']['score']})\n"
+)
+
+report += (
+f"- LLM Judge: "
+f"{item['llm_based_judge']['label']} "
+f"(score={item['llm_based_judge']['score']})\n"
+)
+
+report += (
+f"- Reason: "
+f"{item['llm_based_judge']['reason']}\n\n"
+)
 
 ## Interpretation
 
