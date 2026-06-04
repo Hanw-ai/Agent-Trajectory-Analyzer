@@ -50,3 +50,12 @@ def compute_trajectory_score(
         -
         tool_error_rate * 50
     )
+
+def compute_dominant_failure_mode(failure_breakdown):
+    if not failure_breakdown:
+        return "none"
+
+    return max(
+        failure_breakdown,
+        key=failure_breakdown.get
+    )
