@@ -82,7 +82,6 @@ Run analyzer
 ```bash
 python demo.py
 ```
-
 ## Example Output
 
 ```text
@@ -102,12 +101,23 @@ Agent Trajectory Analysis Results
       'tool_selection_error': 1,
       'hallucination': 1
   },
-  'tool_error_rate': 0.2
+  'tool_error_rate': 0.2,
+
+  'judge_agreement': 1.0,
+  'judge_results': [...]
 }
 
 Report generated:
 reports/evaluation_report.md
 ```
+
+## Current Version
+
+- V1: Trajectory metrics and failure analysis
+- V2: LLM-as-Judge and judge agreement
+
+
+
 
 ## Failure Analysis
 
