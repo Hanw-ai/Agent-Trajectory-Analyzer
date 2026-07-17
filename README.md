@@ -1,8 +1,44 @@
-# Agent Trajectory Analyzer
+# Agent Trajectory Analyzer V2
+A trajectory-level evaluation framework for diagnosing planning, retrieval, tool-use, grounding, verification, and recovery failures in LLM agents.
+V2 Highlights
+	•	Real LLM-as-Judge evaluation with structured outputs
+	•	Deterministic offline judge for reproducible CI
+	•	Pass/fail and failure-type agreement analysis
+	•	Judge disagreement case inspection
+	•	Confusion matrix and CSV artifact generation
+	•	Expanded benchmark across tool use, retrieval, coding, planning, and multi-step reasoning
+	•	Automated Markdown reporting and failure visualization
+Why This Project Matters
+Agent failures are often caused by intermediate execution decisions rather than final-answer fluency.
+A final answer may appear plausible even when the agent:
+	•	selected the wrong tool,
+	•	retrieved irrelevant evidence,
+	•	lost important context,
+	•	hallucinated an unsupported action,
+	•	failed to recover from a tool error, or
+	•	terminated without verifying completion.
+This framework evaluates the full agent trajectory and identifies the likely root cause of failure.
+Evaluation Architecture
+Agent Trajectory
+       |
+       +--------------------+
+       |                    |
+       v                    v
+Rule-Based Judge      LLM-as-Judge
+       |                    |
+       +---------+----------+
+                 |
+                 v
+       Agreement Analysis
+                 |
+       +---------+----------+
+       |                    |
+       v                    v
+Failure Diagnosis    Disagreement Review
+                 |
+                 v
+       Markdown + CSV Reports
 
-Agent Trajectory Analyzer is an evaluation framework for analyzing LLM agent trajectories, tool-use behavior, and failure root causes.
-
-This project is designed for agentic AI systems where an LLM uses external tools such as search, browser, calculator, retriever, or code execution.
 
 ## Why This Project Matters
 
