@@ -1,0 +1,9 @@
+retrieval_error
+tool_selection_error
+tool_execution_error
+reasoning_error
+context_loss
+hallucination
+incomplete_execution
+verification_failure
+recovery_failure
