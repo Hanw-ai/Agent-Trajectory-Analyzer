@@ -16,8 +16,11 @@ def compute_tool_usage(trajectories):
     tools = []
 
     for trajectory in trajectories:
-        for step in trajectory["steps"]:
-            tools.append(step["tool"])
+        for step in trajectory.get("steps", []):
+            tool = step.get("tool")
+
+            if tool:
+                tools.append(tool)
 
     return dict(Counter(tools))
 
@@ -34,9 +37,17 @@ def compute_failure_breakdown(trajectories):
 
 def compute_tool_error_rate(trajectories):
     total = len(trajectories)
+
+    tool_failure_types = {
+        "tool_selection_error",
+        "tool_execution_error",
+    }
+
     tool_errors = sum(
-        1 for t in trajectories
-        if t["failure_reason"] == "tool_selection_error"
+        1
+        for trajectory in trajectories
+        if trajectory.get("failure_reason")
+        in tool_failure_types
     )
 
     return tool_errors / total if total else 0
