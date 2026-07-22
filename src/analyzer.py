@@ -25,7 +25,7 @@ from src.metrics import (
 
 
 class TrajectoryAnalyzer:
-    """Load, validate, and analyze agent trajectory records."""
+    """Load, validate, and analyze agent trajectories."""
 
     def __init__(
         self,
@@ -42,10 +42,7 @@ class TrajectoryAnalyzer:
                 f"Trajectory data not found: {self.data_path}"
             )
 
-        with self.data_path.open(
-            "r",
-            encoding="utf-8",
-        ) as file:
+        with self.data_path.open("r", encoding="utf-8") as file:
             data = json.load(file)
 
         if not isinstance(data, list):
@@ -53,8 +50,7 @@ class TrajectoryAnalyzer:
                 "Trajectory data must be a JSON array."
             )
 
-        self._validate_unique_task_ids(data)
-
+        self._validate_trajectories(data)
         return data
 
     def analyze(
@@ -62,7 +58,9 @@ class TrajectoryAnalyzer:
         export_csv: bool = True,
     ) -> Dict[str, Any]:
         success_rate = compute_success_rate(self.trajectories)
-        tool_error_rate = compute_tool_error_rate(self.trajectories)
+        tool_error_rate = compute_tool_error_rate(
+            self.trajectories
+        )
         failure_breakdown = compute_failure_breakdown(
             self.trajectories
         )
@@ -114,13 +112,33 @@ class TrajectoryAnalyzer:
         }
 
     @staticmethod
-    def _validate_unique_task_ids(
+    def _validate_trajectories(
         trajectories: List[Dict[str, Any]],
     ) -> None:
-        task_ids = [
-            trajectory.get("task_id")
-            for trajectory in trajectories
-        ]
+        required_fields = {
+            "task_id",
+            "task",
+            "success",
+            "steps",
+        }
+
+        task_ids = []
+
+        for index, trajectory in enumerate(trajectories):
+            missing = required_fields - trajectory.keys()
+
+            if missing:
+                raise ValueError(
+                    f"Trajectory {index} is missing: "
+                    f"{', '.join(sorted(missing))}"
+                )
+
+            if not isinstance(trajectory["steps"], list):
+                raise TypeError(
+                    f"Trajectory {index} steps must be a list."
+                )
+
+            task_ids.append(trajectory["task_id"])
 
         duplicates = {
             task_id
@@ -129,9 +147,7 @@ class TrajectoryAnalyzer:
         }
 
         if duplicates:
-            duplicate_list = ", ".join(
-                sorted(str(item) for item in duplicates)
-            )
             raise ValueError(
-                f"Duplicate task IDs found: {duplicate_list}"
+                "Duplicate task IDs found: "
+                + ", ".join(sorted(duplicates))
             )
