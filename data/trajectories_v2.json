@@ -1,3 +1,12 @@
+tool_use：2
+retrieval：2
+code_debugging：2
+planning：2
+multi_step_reasoning：2
+4 success
+6 failure
+4 success
+6 failure
 retrieval_error
 tool_selection_error
 tool_execution_error
