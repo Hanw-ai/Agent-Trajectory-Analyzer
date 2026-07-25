@@ -18,7 +18,7 @@ def parse_args() -> argparse.Namespace:
 
     parser.add_argument(
         "--data",
-        default="data/sample_trajectories.json"",
+        default="data/trajectories_v2.json",
         help="Path to the trajectory dataset.",
     )
 
