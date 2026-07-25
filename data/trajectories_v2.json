@@ -1,18 +1,353 @@
-tool_use：2
-retrieval：2
-code_debugging：2
-planning：2
-multi_step_reasoning：2
-4 success
-6 failure
-4 success
-6 failure
-retrieval_error
-tool_selection_error
-tool_execution_error
-reasoning_error
-context_loss
-hallucination
-incomplete_execution
-verification_failure
-recovery_failure
+[
+  {
+    "task_id": "tool_001",
+    "category": "tool_use",
+    "difficulty": "easy",
+    "task": "Calculate the compound amount for $1,000 invested at 5% annual interest for 2 years.",
+    "expected_tools": [
+      "calculator"
+    ],
+    "success": true,
+    "steps": [
+      {
+        "step": 1,
+        "action": "select_tool",
+        "tool": "calculator",
+        "input": "1000 * (1 + 0.05) ** 2",
+        "output": "1102.5",
+        "status": "success"
+      },
+      {
+        "step": 2,
+        "action": "generate_answer",
+        "tool": null,
+        "input": "Use the calculator result to answer the user.",
+        "output": "The final amount is $1,102.50.",
+        "status": "success"
+      }
+    ],
+    "final_answer": "The final amount is $1,102.50.",
+    "failure_reason": null,
+    "expected_failure_type": "success"
+  },
+  {
+    "task_id": "tool_002",
+    "category": "tool_use",
+    "difficulty": "medium",
+    "task": "Find the current temperature from the provided weather tool.",
+    "expected_tools": [
+      "weather"
+    ],
+    "success": false,
+    "steps": [
+      {
+        "step": 1,
+        "action": "select_tool",
+        "tool": "calculator",
+        "input": "current temperature",
+        "output": "Invalid mathematical expression.",
+        "status": "failed"
+      },
+      {
+        "step": 2,
+        "action": "generate_answer",
+        "tool": null,
+        "input": "Answer without weather data.",
+        "output": "The temperature is probably 72 degrees.",
+        "status": "failed"
+      }
+    ],
+    "final_answer": "The temperature is probably 72 degrees.",
+    "failure_reason": "tool_selection_error",
+    "expected_failure_type": "tool_selection_error"
+  },
+  {
+    "task_id": "retrieval_001",
+    "category": "retrieval",
+    "difficulty": "easy",
+    "task": "Find the refund period in the supplied store policy.",
+    "expected_tools": [
+      "retriever"
+    ],
+    "success": true,
+    "steps": [
+      {
+        "step": 1,
+        "action": "retrieve",
+        "tool": "retriever",
+        "input": "refund period return policy",
+        "output": "Customers may request a refund within 30 days of purchase.",
+        "status": "success"
+      },
+      {
+        "step": 2,
+        "action": "generate_answer",
+        "tool": null,
+        "input": "Answer using the retrieved policy.",
+        "output": "Customers can request a refund within 30 days of purchase.",
+        "status": "success"
+      }
+    ],
+    "final_answer": "Customers can request a refund within 30 days of purchase.",
+    "failure_reason": null,
+    "expected_failure_type": "success"
+  },
+  {
+    "task_id": "retrieval_002",
+    "category": "retrieval",
+    "difficulty": "medium",
+    "task": "Find the refund period in the supplied store policy.",
+    "expected_tools": [
+      "retriever"
+    ],
+    "success": false,
+    "steps": [
+      {
+        "step": 1,
+        "action": "retrieve",
+        "tool": "retriever",
+        "input": "shipping delivery time",
+        "output": "Orders usually arrive within five business days.",
+        "status": "success"
+      },
+      {
+        "step": 2,
+        "action": "generate_answer",
+        "tool": null,
+        "input": "Answer the refund-period question.",
+        "output": "Customers have five days to request a refund.",
+        "status": "failed"
+      }
+    ],
+    "final_answer": "Customers have five days to request a refund.",
+    "failure_reason": "retrieval_error",
+    "expected_failure_type": "retrieval_error"
+  },
+  {
+    "task_id": "code_001",
+    "category": "code_debugging",
+    "difficulty": "medium",
+    "task": "Fix a Python function that should return the sum of two numbers but currently subtracts them.",
+    "expected_tools": [
+      "file_reader",
+      "code_editor",
+      "test_runner"
+    ],
+    "success": true,
+    "steps": [
+      {
+        "step": 1,
+        "action": "inspect_file",
+        "tool": "file_reader",
+        "input": "calculator.py",
+        "output": "def add(a, b): return a - b",
+        "status": "success"
+      },
+      {
+        "step": 2,
+        "action": "edit_file",
+        "tool": "code_editor",
+        "input": "Replace a - b with a + b.",
+        "output": "File updated.",
+        "status": "success"
+      },
+      {
+        "step": 3,
+        "action": "run_tests",
+        "tool": "test_runner",
+        "input": "pytest -q",
+        "output": "3 passed",
+        "status": "success"
+      }
+    ],
+    "final_answer": "The subtraction bug was fixed and all tests pass.",
+    "failure_reason": null,
+    "expected_failure_type": "success"
+  },
+  {
+    "task_id": "code_002",
+    "category": "code_debugging",
+    "difficulty": "medium",
+    "task": "Fix a Python function that should return the sum of two numbers but currently subtracts them.",
+    "expected_tools": [
+      "file_reader",
+      "code_editor",
+      "test_runner"
+    ],
+    "success": false,
+    "steps": [
+      {
+        "step": 1,
+        "action": "inspect_file",
+        "tool": "file_reader",
+        "input": "calculator.py",
+        "output": "def add(a, b): return a - b",
+        "status": "success"
+      },
+      {
+        "step": 2,
+        "action": "edit_file",
+        "tool": "code_editor",
+        "input": "Replace a - b with a + b.",
+        "output": "File updated.",
+        "status": "success"
+      },
+      {
+        "step": 3,
+        "action": "generate_answer",
+        "tool": null,
+        "input": "Report task completion without running tests.",
+        "output": "The bug is fixed.",
+        "status": "failed"
+      }
+    ],
+    "final_answer": "The bug is fixed.",
+    "failure_reason": "verification_failure",
+    "expected_failure_type": "verification_failure"
+  },
+  {
+    "task_id": "planning_001",
+    "category": "planning",
+    "difficulty": "medium",
+    "task": "Create a three-step migration plan for moving a small API service to a new database.",
+    "expected_tools": [],
+    "success": true,
+    "steps": [
+      {
+        "step": 1,
+        "action": "analyze_requirements",
+        "tool": null,
+        "input": "Identify migration constraints.",
+        "output": "Minimize downtime and preserve data consistency.",
+        "status": "success"
+      },
+      {
+        "step": 2,
+        "action": "create_plan",
+        "tool": null,
+        "input": "Build a staged migration plan.",
+        "output": "Prepare schema, perform dual writes, then cut over.",
+        "status": "success"
+      },
+      {
+        "step": 3,
+        "action": "verify_plan",
+        "tool": null,
+        "input": "Check rollback and monitoring requirements.",
+        "output": "Plan includes rollback and validation checkpoints.",
+        "status": "success"
+      }
+    ],
+    "final_answer": "Prepare the schema, run dual writes with validation, and then cut over with rollback monitoring.",
+    "failure_reason": null,
+    "expected_failure_type": "success"
+  },
+  {
+    "task_id": "planning_002",
+    "category": "planning",
+    "difficulty": "hard",
+    "task": "Create and execute a plan to analyze a CSV file and summarize the top three product categories.",
+    "expected_tools": [
+      "file_reader",
+      "python"
+    ],
+    "success": false,
+    "steps": [
+      {
+        "step": 1,
+        "action": "create_plan",
+        "tool": null,
+        "input": "Plan how to analyze the CSV.",
+        "output": "Read the file, group by category, and sort totals.",
+        "status": "success"
+      },
+      {
+        "step": 2,
+        "action": "inspect_file",
+        "tool": "file_reader",
+        "input": "sales.csv",
+        "output": "CSV contains category and revenue columns.",
+        "status": "success"
+      }
+    ],
+    "final_answer": "",
+    "failure_reason": "incomplete_execution",
+    "expected_failure_type": "incomplete_execution"
+  },
+  {
+    "task_id": "reasoning_001",
+    "category": "multi_step_reasoning",
+    "difficulty": "hard",
+    "task": "Use the provided facts to determine which employee is eligible for promotion.",
+    "expected_tools": [],
+    "success": false,
+    "steps": [
+      {
+        "step": 1,
+        "action": "extract_constraints",
+        "tool": null,
+        "input": "Promotion requires 3 years of service and a rating above 4.",
+        "output": "Eligibility requires both constraints.",
+        "status": "success"
+      },
+      {
+        "step": 2,
+        "action": "evaluate_candidate",
+        "tool": null,
+        "input": "Candidate A has 4 years and rating 4.5.",
+        "output": "Candidate A is eligible.",
+        "status": "success"
+      },
+      {
+        "step": 3,
+        "action": "evaluate_candidate",
+        "tool": null,
+        "input": "Candidate B has 2 years and rating 4.8.",
+        "output": "Candidate B has the highest rating.",
+        "status": "success"
+      },
+      {
+        "step": 4,
+        "action": "generate_answer",
+        "tool": null,
+        "input": "Select the eligible candidate.",
+        "output": "Candidate B is eligible.",
+        "status": "failed"
+      }
+    ],
+    "final_answer": "Candidate B is eligible.",
+    "failure_reason": "context_loss",
+    "expected_failure_type": "context_loss"
+  },
+  {
+    "task_id": "reasoning_002",
+    "category": "multi_step_reasoning",
+    "difficulty": "hard",
+    "task": "Determine the annual subscription price using only the supplied pricing table.",
+    "expected_tools": [
+      "retriever"
+    ],
+    "success": false,
+    "steps": [
+      {
+        "step": 1,
+        "action": "retrieve",
+        "tool": "retriever",
+        "input": "annual subscription pricing",
+        "output": "The supplied table lists monthly pricing only.",
+        "status": "success"
+      },
+      {
+        "step": 2,
+        "action": "generate_answer",
+        "tool": null,
+        "input": "Provide the annual price.",
+        "output": "The annual plan costs $199.",
+        "status": "failed"
+      }
+    ],
+    "final_answer": "The annual plan costs $199.",
+    "failure_reason": "hallucination",
+    "expected_failure_type": "hallucination"
+  }
+]
