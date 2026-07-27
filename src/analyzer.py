@@ -1,4 +1,4 @@
-"""Main orchestration layer for trajectory analysis."""
+"""Main orchestration layer for trajectory evaluation."""
 
 from __future__ import annotations
 
@@ -11,7 +11,6 @@ from src.judge_agreement import (
     compute_disagreement_breakdown,
     evaluate_with_judges,
     export_agreement_outputs,
-    find_disagreements,
 )
 from src.metrics import (
     compute_avg_trajectory_length,
@@ -25,7 +24,7 @@ from src.metrics import (
 
 
 class TrajectoryAnalyzer:
-    """Load, validate, and analyze agent trajectories."""
+    """Analyze agent trajectories and compare evaluator judgments."""
 
     def __init__(
         self,
@@ -37,27 +36,40 @@ class TrajectoryAnalyzer:
         self.trajectories = self.load_data()
 
     def load_data(self) -> List[Dict[str, Any]]:
+        """Load and validate a JSON trajectory dataset."""
+
         if not self.data_path.exists():
             raise FileNotFoundError(
-                f"Trajectory data not found: {self.data_path}"
+                f"Trajectory dataset not found: {self.data_path}"
             )
 
-        with self.data_path.open("r", encoding="utf-8") as file:
-            data = json.load(file)
+        with self.data_path.open(
+            "r",
+            encoding="utf-8",
+        ) as file:
+            trajectories = json.load(file)
 
-        if not isinstance(data, list):
+        if not isinstance(trajectories, list):
             raise TypeError(
-                "Trajectory data must be a JSON array."
+                "Trajectory dataset must be a JSON list."
             )
 
-        self._validate_trajectories(data)
-        return data
+        if not trajectories:
+            raise ValueError(
+                "Trajectory dataset is empty."
+            )
+
+        return trajectories
 
     def analyze(
         self,
-        export_csv: bool = True,
+        export_csv: bool = False,
     ) -> Dict[str, Any]:
-        success_rate = compute_success_rate(self.trajectories)
+        """Compute trajectory metrics and judge-agreement results."""
+
+        success_rate = compute_success_rate(
+            self.trajectories
+        )
         tool_error_rate = compute_tool_error_rate(
             self.trajectories
         )
@@ -99,55 +111,11 @@ class TrajectoryAnalyzer:
                     failure_breakdown
                 )
             ),
+            "judge_results": judge_results,
             "agreement_metrics": agreement_metrics,
             "disagreement_breakdown": (
                 compute_disagreement_breakdown(
                     judge_results
                 )
             ),
-            "disagreements": find_disagreements(
-                judge_results
-            ),
-            "judge_results": judge_results,
         }
-
-    @staticmethod
-    def _validate_trajectories(
-        trajectories: List[Dict[str, Any]],
-    ) -> None:
-        required_fields = {
-            "task_id",
-            "task",
-            "success",
-            "steps",
-        }
-
-        task_ids = []
-
-        for index, trajectory in enumerate(trajectories):
-            missing = required_fields - trajectory.keys()
-
-            if missing:
-                raise ValueError(
-                    f"Trajectory {index} is missing: "
-                    f"{', '.join(sorted(missing))}"
-                )
-
-            if not isinstance(trajectory["steps"], list):
-                raise TypeError(
-                    f"Trajectory {index} steps must be a list."
-                )
-
-            task_ids.append(trajectory["task_id"])
-
-        duplicates = {
-            task_id
-            for task_id in task_ids
-            if task_ids.count(task_id) > 1
-        }
-
-        if duplicates:
-            raise ValueError(
-                "Duplicate task IDs found: "
-                + ", ".join(sorted(duplicates))
-            )
