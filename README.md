@@ -191,8 +191,8 @@ This project includes two judge types:
 | Judge | Description |
 |---|---|
 | Rule-Based Judge | Uses explicit failure labels and success signals |
-| Simulated LLM-as-Judge | Evaluates trajectory quality, tool use, and grounding behavior |
+| LLM-as-Judge | Evaluates trajectory quality, tool use, and grounding behavior |
 
-The framework computes judge agreement to measure consistency between deterministic rules and LLM-style evaluation.
+The framework computes judge agreement to measure consistency between deterministic ground-truth-derived evaluation and model-based trajectory evaluation.
 
 This mirrors common evaluation workflows for agentic systems, where model outputs are assessed using both programmatic checks and LLM-based evaluators.
