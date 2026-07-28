@@ -1,23 +1,35 @@
 # Agent Trajectory Analyzer V2
-A trajectory-level evaluation framework for diagnosing planning, retrieval, tool-use, grounding, verification, and recovery failures in LLM agents.
-V2 Highlights
-	•	Real LLM-as-Judge evaluation with structured outputs
-	•	Deterministic offline judge for reproducible CI
-	•	Pass/fail and failure-type agreement analysis
-	•	Judge disagreement case inspection
-	•	Confusion matrix and CSV artifact generation
-	•	Expanded benchmark across tool use, retrieval, coding, planning, and multi-step reasoning
-	•	Automated Markdown reporting and failure visualization
-Why This Project Matters
-Agent failures are often caused by intermediate execution decisions rather than final-answer fluency.
+
+A trajectory-level evaluation framework for diagnosing planning,
+retrieval, tool-use, grounding, verification, and recovery failures
+in LLM agents.
+
+## V2 Highlights
+
+- Real LLM-as-Judge evaluation with structured outputs
+- Deterministic offline judge for reproducible CI
+- Pass/fail and failure-type agreement analysis
+- Judge disagreement case inspection
+- Confusion matrix and CSV artifact generation
+- Benchmark tasks across tool use, retrieval, coding, and planning
+- Automated Markdown reporting and failure visualization
+
+## Why This Project Matters
+
+Agent failures are often caused by intermediate execution decisions,
+not only by the quality of the final answer.
+
 A final answer may appear plausible even when the agent:
-	•	selected the wrong tool,
-	•	retrieved irrelevant evidence,
-	•	lost important context,
-	•	hallucinated an unsupported action,
-	•	failed to recover from a tool error, or
-	•	terminated without verifying completion.
-This framework evaluates the full agent trajectory and identifies the likely root cause of failure.
+
+- selects the wrong tool;
+- retrieves irrelevant evidence;
+- loses important context;
+- produces unsupported claims;
+- fails to recover from a tool error;
+- terminates without verifying completion.
+
+This framework evaluates the complete execution trajectory and identifies the likely root cause of failure.
+
 Evaluation Architecture
 Agent Trajectory
        |
@@ -66,14 +78,13 @@ This framework analyzes those failures from agent traces.
 
 ## LLM-as-Judge
 
-The framework supports both:
+The framework supports two complementary evaluation modes:
 
-- Rule-Based Judge
-- Simulated LLM-as-Judge
-
-Judge agreement is measured to evaluate consistency between deterministic evaluation and model-based evaluation.
-
-This mirrors evaluation workflows commonly used in modern agent systems.
+| Evaluator | Description |
+|---|---|
+| Rule-Based Judge | Deterministic evaluator for reproducible local and CI runs |
+| LLM-as-Judge | OpenAI model evaluator using structured Pydantic outputs |
+| Offline Fallback | Deterministic approximation used when no API key is available |
 
 ## Example Trajectory
 
