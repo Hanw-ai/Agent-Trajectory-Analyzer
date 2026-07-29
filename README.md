@@ -196,3 +196,30 @@ This project includes two judge types:
 The framework computes judge agreement to measure consistency between deterministic ground-truth-derived evaluation and model-based trajectory evaluation.
 
 This mirrors common evaluation workflows for agentic systems, where model outputs are assessed using both programmatic checks and LLM-based evaluators.
+
+{
+  ## Repository Structure
+
+```text
+Agent-Trajectory-Analyzer/
+├── data/
+│   ├── sample_trajectories.json
+│   └── trajectories_v2.json
+├── reports/
+│   ├── evaluation_report.md
+│   ├── judge_results.csv
+│   ├── disagreements.csv
+│   ├── confusion_matrix.csv
+│   └── failure_breakdown.png
+├── src/
+│   ├── analyzer.py
+│   ├── judges.py
+│   ├── llm_judge.py
+│   ├── judge_agreement.py
+│   ├── metrics.py
+│   ├── report.py
+│   └── visualization.py
+├── tests/
+├── demo.py
+├── requirements.txt
+└── README.md
