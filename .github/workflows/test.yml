@@ -20,6 +20,7 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+          cache: "pip"
 
       - name: Install dependencies
         run: |
@@ -27,8 +28,18 @@ jobs:
           pip install -r requirements.txt
           pip install pytest
 
+      - name: Validate Python syntax
+        run: |
+          python -m compileall src test demo.py
+
       - name: Run tests
-        run: pytest -q
+        env:
+          PYTHONPATH: .
+        run: |
+          pytest test -v
 
       - name: Run offline evaluation
-        run: python demo.py
+        env:
+          PYTHONPATH: .
+        run: |
+          python demo.py
