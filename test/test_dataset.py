@@ -157,7 +157,7 @@ def test_steps_are_valid():
             assert "output" in step
             assert "status" in step
 
-def test_each_present_category_has_at_least_one_case():
+def test_dataset_contains_multiple_categories():
     trajectories = load_dataset()
 
     category_counts = Counter(
@@ -165,20 +165,4 @@ def test_each_present_category_has_at_least_one_case():
         for item in trajectories
     )
 
-    assert category_counts
-
-    for count in category_counts.values():
-        assert count >= 1
-
-def test_each_present_category_has_at_least_one_case():
-    trajectories = load_dataset()
-
-    category_counts = Counter(
-        item["category"]
-        for item in trajectories
-    )
-
-    assert category_counts
-
-    for count in category_counts.values():
-        assert count >= 1
+    assert len(category_counts) >= 3
