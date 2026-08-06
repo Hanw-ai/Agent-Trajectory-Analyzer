@@ -16,6 +16,7 @@ ALLOWED_CATEGORIES = {
     "planning",
     "verification",
     "recovery",
+    "multi_step_reasoning",
 }
 
 ALLOWED_DIFFICULTIES = {
@@ -35,6 +36,7 @@ ALLOWED_FAILURE_TYPES = {
     "verification_failure",
     "recovery_failure",
     "overlong_trajectory",
+    "incomplete_execution",
 }
 
 
@@ -166,3 +168,27 @@ def test_each_category_has_multiple_cases():
 
     for category in ALLOWED_CATEGORIES:
         assert category_counts[category] >= 2
+
+def test_each_category_has_at_least_one_case():
+    trajectories = load_dataset()
+
+    category_counts = Counter(
+        item["category"]
+        for item in trajectories
+    )
+
+    for category in ALLOWED_CATEGORIES:
+        assert category_counts[category] >= 1
+
+def test_each_present_category_has_at_least_one_case():
+    trajectories = load_dataset()
+
+    category_counts = Counter(
+        item["category"]
+        for item in trajectories
+    )
+
+    assert category_counts
+
+    for count in category_counts.values():
+        assert count >= 1
