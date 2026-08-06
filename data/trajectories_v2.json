@@ -125,7 +125,7 @@
   },
   {
     "task_id": "code_001",
-    "category": "code_debugging",
+    "category": "coding",
     "difficulty": "medium",
     "task": "Fix a Python function that should return the sum of two numbers but currently subtracts them.",
     "expected_tools": [
@@ -166,7 +166,7 @@
   },
   {
     "task_id": "code_002",
-    "category": "code_debugging",
+    "category": "coding",
     "difficulty": "medium",
     "task": "Fix a Python function that should return the sum of two numbers but currently subtracts them.",
     "expected_tools": [
