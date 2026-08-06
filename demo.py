@@ -57,18 +57,30 @@ def main() -> None:
     print("\nAgent Trajectory Analyzer V2")
     print("=" * 40)
 
-    summary = {
-        "total_tasks": 30,
-        "success_rate": 0.5333,
-        "trajectory_score": 0.61,
-        "dominant_failure_mode": "tool_execution_error",
-        "agreement_metrics": {
-        "total_evaluated": 30,
-        "label_agreement_rate": 0.8667,
-        "failure_type_agreement_rate": 0.6333,
-        "mean_score_difference": 0.7,
-        "disagreement_count": 11
-  }
+  summary = {
+    "total_tasks": results["total_tasks"],
+    "success_rate": round(
+        results["success_rate"],
+        4,
+    ),
+    "avg_trajectory_length": round(
+        results["avg_trajectory_length"],
+        2,
+    ),
+    "tool_error_rate": round(
+        results["tool_error_rate"],
+        4,
+    ),
+    "trajectory_score": round(
+        results["trajectory_score"],
+        4,
+    ),
+    "dominant_failure_mode": results[
+        "dominant_failure_mode"
+    ],
+    "agreement_metrics": results[
+        "agreement_metrics"
+    ],
 }
 
     print(
