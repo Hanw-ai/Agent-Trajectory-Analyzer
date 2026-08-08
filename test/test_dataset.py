@@ -37,6 +37,7 @@ ALLOWED_FAILURE_TYPES = {
     "recovery_failure",
     "overlong_trajectory",
     "incomplete_execution",
+    "context_loss",
 }
 
 
