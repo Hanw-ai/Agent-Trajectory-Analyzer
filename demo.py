@@ -57,31 +57,16 @@ def main() -> None:
     print("\nAgent Trajectory Analyzer V2")
     print("=" * 40)
 
-  summary = {
-    "total_tasks": results["total_tasks"],
-    "success_rate": round(
-        results["success_rate"],
-        4,
-    ),
-    "avg_trajectory_length": round(
-        results["avg_trajectory_length"],
-        2,
-    ),
-    "tool_error_rate": round(
-        results["tool_error_rate"],
-        4,
-    ),
-    "trajectory_score": round(
-        results["trajectory_score"],
-        4,
-    ),
-    "dominant_failure_mode": results[
-        "dominant_failure_mode"
-    ],
-    "agreement_metrics": results[
-        "agreement_metrics"
-    ],
-}
+
+    summary = {
+        "total_tasks": results["total_tasks"],
+        "success_rate": round(results["success_rate"], 4),
+        "avg_trajectory_length": round(results["avg_trajectory_length"], 2),
+        "tool_error_rate": round(results["tool_error_rate"], 4),
+        "trajectory_score": round(results["trajectory_score"], 4),
+        "dominant_failure_mode": results["dominant_failure_mode"],
+        "agreement_metrics": results["agreement_metrics"],
+    }
 
     print(
         json.dumps(
