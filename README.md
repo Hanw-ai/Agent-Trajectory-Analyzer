@@ -101,21 +101,6 @@ Failure Diagnosis    Disagreement Review
        Markdown + CSV Reports
 
 
-## Why This Project Matters
-
-Modern LLM agents often fail not because the final answer is poorly written, but because the intermediate trajectory is flawed.
-
-Common failure modes include:
-
-- Retrieval error
-- Tool selection error
-- Reasoning error
-- Hallucination
-- Overlong trajectory
-- Failure to recover from bad tool outputs
-
-This framework analyzes those failures from agent traces.
-
 ## Features
 
 - Analyze agent trajectories step by step
@@ -184,40 +169,32 @@ python demo.py
 Agent Trajectory Analysis Results
 
 {
-  'total_tasks': 5,
-  'success_rate': 0.4,
-  'avg_trajectory_length': 2.4,
-  'tool_usage': {
-      'search': 3,
-      'browser': 4,
-      'summarizer': 5
-  },
-  'failure_breakdown': {
-      'retrieval_error': 1,
-      'tool_selection_error': 1,
-      'hallucination': 1
-  },
-  'tool_error_rate': 0.2,
-
- 
-  'judge_results': [...]
+  "total_tasks": 10,
+  "success_rate": 0.4,
+  "avg_trajectory_length": 2.5,
+  "tool_error_rate": 0.1,
+  "trajectory_score": 35.0,
+  "dominant_failure_mode": "tool_selection_error",
+  "agreement_metrics": {
+    "total_evaluated": 10,
+    "label_agreement_rate": 1.0,
+    "failure_type_agreement_rate": 1.0,
+    "mean_score_difference": 0.0,
+    "disagreement_count": 0
+  }
 }
 
-Report generated:
-reports/evaluation_report.md
-```
+Report generated: reports/v2_report.md
+Judge results generated: reports/judge_results.csv
+Disagreements generated: reports/disagreements.csv
+Confusion matrix generated: reports/confusion_matrix.csv
+Chart generated: reports/failure_breakdown.png
 
 ## Current Version
 
 - V1: Trajectory metrics and failure analysis
 - V2: LLM-as-Judge and judge agreement
 
-
-
-
-## Failure Analysis
-
-![Failure Breakdown](reports/failure_breakdown.png)
 
 ## Root Cause Analysis
 
@@ -233,21 +210,7 @@ This helps diagnose whether an agent primarily fails because of:
 
 This is useful for debugging agentic systems such as coding agents, research agents, browser agents, and tool-using assistants.
 
-## V2: LLM-as-Judge + Judge Agreement
-
-This project includes two judge types:
-
-| Judge | Description |
-|---|---|
-| Rule-Based Judge | Uses explicit failure labels and success signals |
-| LLM-as-Judge | Evaluates trajectory quality, tool use, and grounding behavior |
-
-The framework computes judge agreement to measure consistency between deterministic ground-truth-derived evaluation and model-based trajectory evaluation.
-
-This mirrors common evaluation workflows for agentic systems, where model outputs are assessed using both programmatic checks and LLM-based evaluators.
-
-{
-  ## Repository Structure
+## Repository Structure
 
 ```text
 Agent-Trajectory-Analyzer/
@@ -255,7 +218,7 @@ Agent-Trajectory-Analyzer/
 │   ├── sample_trajectories.json
 │   └── trajectories_v2.json
 ├── reports/
-│   ├── evaluation_report.md
+│   ├── v2_report.md
 │   ├── judge_results.csv
 │   ├── disagreements.csv
 │   ├── confusion_matrix.csv
