@@ -57,7 +57,6 @@ def main() -> None:
     print("\nAgent Trajectory Analyzer V2")
     print("=" * 40)
 
-
     summary = {
         "total_tasks": results["total_tasks"],
         "success_rate": round(results["success_rate"], 4),
