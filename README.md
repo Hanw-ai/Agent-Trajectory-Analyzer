@@ -14,6 +14,34 @@ in LLM agents.
 - Benchmark tasks across tool use, retrieval, coding, and planning
 - Automated Markdown reporting and failure visualization
 
+## Benchmark Results
+
+The current V2 benchmark evaluates **36 agent trajectories across 7 task categories**, covering coding, retrieval, planning, multi-step reasoning, tool use, verification, and recovery.
+
+| Metric | Result |
+|---|---:|
+| Total Tasks | 36 |
+| Success Rate | 44.44% |
+| Average Trajectory Length | 2.50 |
+| Tool Error Rate | 5.56% |
+| Trajectory Score | 41.67 |
+| Dominant Failure Mode | `verification_failure` |
+
+### Judge Agreement
+
+| Metric | Result |
+|---|---:|
+| Pass/Fail Agreement | 100.00% |
+| Failure-Type Agreement | 100.00% |
+| Mean Score Difference | 0.0556 |
+| Disagreement Count | 0 |
+
+The benchmark automatically generates detailed evaluation artifacts, including judge outputs, disagreement analysis, a confusion matrix, and failure-mode visualization.
+
+![Failure breakdown](reports/failure_breakdown.png)
+
+For the complete generated evaluation report, see [`reports/v2_report.md`](reports/v2_report.md).
+
 ## Why This Project Matters
 
 Agent failures are often caused by intermediate execution decisions,
@@ -117,30 +145,29 @@ python demo.py
 ## Example Output
 
 ```text
-Agent Trajectory Analysis Results
+Agent Trajectory Analyzer V2
 
 {
-  'total_tasks': 5,
-  'success_rate': 0.4,
-  'avg_trajectory_length': 2.4,
-  'tool_usage': {
-      'search': 3,
-      'browser': 4,
-      'summarizer': 5
-  },
-  'failure_breakdown': {
-      'retrieval_error': 1,
-      'tool_selection_error': 1,
-      'hallucination': 1
-  },
-  'tool_error_rate': 0.2,
-
-  'judge_agreement': 1.0,
-  'judge_results': [...]
+  "total_tasks": 36,
+  "success_rate": 0.4444,
+  "avg_trajectory_length": 2.5,
+  "tool_error_rate": 0.0556,
+  "trajectory_score": 41.67,
+  "dominant_failure_mode": "verification_failure",
+  "agreement_metrics": {
+    "total_evaluated": 36,
+    "label_agreement_rate": 1.0,
+    "failure_type_agreement_rate": 1.0,
+    "mean_score_difference": 0.0556,
+    "disagreement_count": 0
+  }
 }
 
-Report generated:
-reports/v2_report.md
+Report generated: reports/v2_report.md
+Judge results generated: reports/judge_results.csv
+Disagreements generated: reports/disagreements.csv
+Confusion matrix generated: reports/confusion_matrix.csv
+Chart generated: reports/failure_breakdown.png
 ```
 
 ## Current Version
