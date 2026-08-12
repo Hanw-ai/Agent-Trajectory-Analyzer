@@ -1,0 +1,304 @@
+[
+  {
+    "task_id": "code_005",
+    "category": "coding",
+    "difficulty": "hard",
+    "task": "Fix a repository function that returns duplicate user IDs and verify the fix with the test suite.",
+    "expected_tools": [
+      "file_reader",
+      "code_editor",
+      "test_runner"
+    ],
+    "success": true,
+    "steps": [
+      {
+        "step": 1,
+        "action": "inspect_source",
+        "tool": "file_reader",
+        "input": "src/users.py",
+        "output": "The function appends user IDs without removing duplicates.",
+        "status": "success"
+      },
+      {
+        "step": 2,
+        "action": "edit_function",
+        "tool": "code_editor",
+        "input": "Deduplicate IDs while preserving order.",
+        "output": "Updated implementation using ordered deduplication.",
+        "status": "success"
+      },
+      {
+        "step": 3,
+        "action": "run_tests",
+        "tool": "test_runner",
+        "input": "pytest",
+        "output": "All tests passed.",
+        "status": "success"
+      }
+    ],
+    "final_answer": "The duplicate-ID bug was fixed and the repository test suite passes.",
+    "failure_reason": null,
+    "expected_failure_type": "success"
+  },
+  {
+    "task_id": "code_006",
+    "category": "coding",
+    "difficulty": "hard",
+    "task": "Fix a parser bug in the repository and verify that the change does not introduce regressions.",
+    "expected_tools": [
+      "file_reader",
+      "code_editor",
+      "test_runner"
+    ],
+    "success": false,
+    "steps": [
+      {
+        "step": 1,
+        "action": "inspect_parser",
+        "tool": "file_reader",
+        "input": "src/parser.py",
+        "output": "Identified an incorrect empty-input branch.",
+        "status": "success"
+      },
+      {
+        "step": 2,
+        "action": "modify_parser",
+        "tool": "code_editor",
+        "input": "Correct the empty-input branch.",
+        "output": "Parser implementation updated.",
+        "status": "success"
+      },
+      {
+        "step": 3,
+        "action": "stop_before_tests",
+        "tool": null,
+        "input": "Return the result without running tests.",
+        "output": "Repository test suite was not executed.",
+        "status": "success"
+      }
+    ],
+    "final_answer": "The parser bug has been fixed.",
+    "failure_reason": "incomplete_execution",
+    "expected_failure_type": "incomplete_execution"
+  },
+  {
+    "task_id": "retrieval_005",
+    "category": "retrieval",
+    "difficulty": "hard",
+    "task": "Determine the production request timeout using information distributed across service configuration and deployment documentation.",
+    "expected_tools": [
+      "retriever",
+      "file_reader"
+    ],
+    "success": true,
+    "steps": [
+      {
+        "step": 1,
+        "action": "retrieve_configuration",
+        "tool": "retriever",
+        "input": "production request timeout configuration",
+        "output": "Found service configuration reference pointing to deployment settings.",
+        "status": "success"
+      },
+      {
+        "step": 2,
+        "action": "read_deployment_docs",
+        "tool": "file_reader",
+        "input": "docs/deployment.md",
+        "output": "Production overrides the default timeout with REQUEST_TIMEOUT=30.",
+        "status": "success"
+      },
+      {
+        "step": 3,
+        "action": "combine_evidence",
+        "tool": null,
+        "input": "Resolve default and production-specific values.",
+        "output": "Production request timeout is 30 seconds.",
+        "status": "success"
+      }
+    ],
+    "final_answer": "The production request timeout is 30 seconds.",
+    "failure_reason": null,
+    "expected_failure_type": "success"
+  },
+  {
+    "task_id": "retrieval_006",
+    "category": "retrieval",
+    "difficulty": "hard",
+    "task": "Determine whether premium accounts have a different request limit using the supplied policy documents.",
+    "expected_tools": [
+      "retriever",
+      "file_reader"
+    ],
+    "success": false,
+    "steps": [
+      {
+        "step": 1,
+        "action": "retrieve_general_policy",
+        "tool": "retriever",
+        "input": "request limits",
+        "output": "General accounts are limited to 100 requests per minute.",
+        "status": "success"
+      },
+      {
+        "step": 2,
+        "action": "retrieve_premium_policy",
+        "tool": "file_reader",
+        "input": "premium_policy.md",
+        "output": "Premium accounts are limited to 250 requests per minute.",
+        "status": "success"
+      },
+      {
+        "step": 3,
+        "action": "answer_from_partial_context",
+        "tool": null,
+        "input": "State the premium request limit.",
+        "output": "Premium accounts are limited to 100 requests per minute.",
+        "status": "success"
+      }
+    ],
+    "final_answer": "Premium accounts are limited to 100 requests per minute.",
+    "failure_reason": "context_loss",
+    "expected_failure_type": "context_loss"
+  },
+  {
+    "task_id": "planning_005",
+    "category": "planning",
+    "difficulty": "hard",
+    "task": "Plan a safe database schema migration where the application depends on the new column.",
+    "expected_tools": [],
+    "success": true,
+    "steps": [
+      {
+        "step": 1,
+        "action": "identify_dependencies",
+        "tool": null,
+        "input": "Application requires new nullable column.",
+        "output": "Database change must precede application dependency.",
+        "status": "success"
+      },
+      {
+        "step": 2,
+        "action": "create_migration_plan",
+        "tool": null,
+        "input": "Construct backward-compatible rollout.",
+        "output": "Add nullable column, deploy compatible application, backfill data, then enforce constraint.",
+        "status": "success"
+      },
+      {
+        "step": 3,
+        "action": "verify_order",
+        "tool": null,
+        "input": "Check rollout dependencies.",
+        "output": "No deployment step depends on unavailable schema.",
+        "status": "success"
+      }
+    ],
+    "final_answer": "Add the nullable column first, deploy compatible code, backfill existing rows, and enforce the constraint last.",
+    "failure_reason": null,
+    "expected_failure_type": "success"
+  },
+  {
+    "task_id": "planning_006",
+    "category": "planning",
+    "difficulty": "hard",
+    "task": "Plan a production rollout for an application that requires a new database column.",
+    "expected_tools": [],
+    "success": false,
+    "steps": [
+      {
+        "step": 1,
+        "action": "plan_application_deploy",
+        "tool": null,
+        "input": "Deploy application requiring user_status column.",
+        "output": "Deploy new application version first.",
+        "status": "success"
+      },
+      {
+        "step": 2,
+        "action": "plan_schema_change",
+        "tool": null,
+        "input": "Add user_status column.",
+        "output": "Run database migration after application deployment.",
+        "status": "success"
+      }
+    ],
+    "final_answer": "Deploy the application first and add the required database column afterward.",
+    "failure_reason": "planning_error",
+    "expected_failure_type": "planning_error"
+  },
+  {
+    "task_id": "reasoning_005",
+    "category": "multi_step_reasoning",
+    "difficulty": "hard",
+    "task": "Determine whether a customer qualifies for a discount requiring at least 12 months of membership and at least $1,000 in annual spending.",
+    "expected_tools": [],
+    "success": true,
+    "steps": [
+      {
+        "step": 1,
+        "action": "evaluate_membership",
+        "tool": null,
+        "input": "Customer has been a member for 18 months; minimum is 12 months.",
+        "output": "Membership requirement satisfied.",
+        "status": "success"
+      },
+      {
+        "step": 2,
+        "action": "evaluate_spending",
+        "tool": null,
+        "input": "Customer spent $1,350; minimum is $1,000.",
+        "output": "Spending requirement satisfied.",
+        "status": "success"
+      },
+      {
+        "step": 3,
+        "action": "combine_conditions",
+        "tool": null,
+        "input": "Both conditions are required.",
+        "output": "Both requirements are satisfied.",
+        "status": "success"
+      }
+    ],
+    "final_answer": "The customer qualifies for the discount.",
+    "failure_reason": null,
+    "expected_failure_type": "success"
+  },
+  {
+    "task_id": "reasoning_006",
+    "category": "multi_step_reasoning",
+    "difficulty": "hard",
+    "task": "Determine whether a candidate is eligible when eligibility requires a score of at least 80 and at least 3 years of experience.",
+    "expected_tools": [],
+    "success": false,
+    "steps": [
+      {
+        "step": 1,
+        "action": "evaluate_score",
+        "tool": null,
+        "input": "Candidate score is 92; minimum is 80.",
+        "output": "Score requirement satisfied.",
+        "status": "success"
+      },
+      {
+        "step": 2,
+        "action": "evaluate_experience",
+        "tool": null,
+        "input": "Candidate has 1 year of experience; minimum is 3 years.",
+        "output": "Experience requirement not satisfied.",
+        "status": "success"
+      },
+      {
+        "step": 3,
+        "action": "combine_conditions",
+        "tool": null,
+        "input": "Both conditions are required.",
+        "output": "Candidate is eligible because the score requirement is satisfied.",
+        "status": "success"
+      }
+    ],
+    "final_answer": "The candidate is eligible.",
+    "failure_reason": "reasoning_error",
+    "expected_failure_type": "reasoning_error"
+  }
+]
