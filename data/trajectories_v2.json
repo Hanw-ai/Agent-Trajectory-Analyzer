@@ -349,19 +349,17 @@
     "final_answer": "The annual plan costs $199.",
     "failure_reason": "hallucination",
     "expected_failure_type": "hallucination"
-  }
-]
-
-{
-  "task_id": "tool_003",
-  "category": "tool_use",
-  "difficulty": "medium",
-  "task": "Convert 72 degrees Fahrenheit to Celsius using a calculator.",
-  "expected_tools": [
+  },
+  {
+    "task_id": "tool_003",
+    "category": "tool_use",
+    "difficulty": "medium",
+    "task": "Convert 72 degrees Fahrenheit to Celsius using a calculator.",
+    "expected_tools": [
     "calculator"
-  ],
-  "success": true,
-  "steps": [
+    ],
+    "success": true,
+    "steps": [
     {
       "step": 1,
       "action": "select_tool",
@@ -382,8 +380,7 @@
   "final_answer": "72°F is approximately 22.22°C.",
   "failure_reason": null,
   "expected_failure_type": "success"
-}
-
+},
 {
   "task_id": "tool_004",
   "category": "tool_use",
@@ -414,8 +411,7 @@
   "final_answer": "The average is 0.",
   "failure_reason": "tool_execution_error",
   "expected_failure_type": "tool_execution_error"
-}
-
+},
 {
   "task_id": "retrieval_003",
   "category": "retrieval",
@@ -446,8 +442,7 @@
   "final_answer": "Password reset links expire after 24 hours.",
   "failure_reason": null,
   "expected_failure_type": "success"
-}
-
+},
 {
   "task_id": "retrieval_004",
   "category": "retrieval",
@@ -478,8 +473,7 @@
   "final_answer": "Password reset links expire after 30 days.",
   "failure_reason": "retrieval_error",
   "expected_failure_type": "retrieval_error"
-}
-
+},
 {
   "task_id": "code_003",
   "category": "coding",
@@ -519,8 +513,7 @@
   "final_answer": "The function now returns the maximum value and the tests pass.",
   "failure_reason": null,
   "expected_failure_type": "success"
-}
-
+},
 {
   "task_id": "code_004",
   "category": "coding",
@@ -552,8 +545,7 @@
   "final_answer": "The function has been corrected and all tests pass.",
   "failure_reason": "hallucination",
   "expected_failure_type": "hallucination"
-}
-
+},
 {
   "task_id": "planning_003",
   "category": "planning",
@@ -615,7 +607,7 @@
   "final_answer": "The migration is complete.",
   "failure_reason": "planning_error",
   "expected_failure_type": "planning_error"
-}
+},
 {
   "task_id": "reasoning_003",
   "category": "multi_step_reasoning",
@@ -652,7 +644,7 @@
   "final_answer": "The customer qualifies for the discount.",
   "failure_reason": null,
   "expected_failure_type": "success"
-}
+},
 {
   "task_id": "reasoning_004",
   "category": "multi_step_reasoning",
@@ -689,4 +681,5 @@
   "final_answer": "The customer qualifies for the discount.",
   "failure_reason": "reasoning_error",
   "expected_failure_type": "reasoning_error"
-}
+    }
+  ]
